@@ -93,6 +93,7 @@ class ArduinoLowPowerCommon {
     return isProcessingOnSleep(sleep_mode);
   };
 
+  /// Provides information if the indicated mode is supported 
   virtual bool isModeSupported(sleep_mode_enum_t sleep_mode) {
     bool result = true;
     switch (sleep_mode) {

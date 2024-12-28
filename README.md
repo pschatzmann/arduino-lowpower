@@ -45,7 +45,7 @@ Further examples can be found [here](examples).
 
 ## Documentaion
 
-There is a common API: however each architecture might support some specific additional methods to fine tune the processing:
+There is a [common API](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerCommon.html): however each architecture might support some specific additional methods to fine tune the processing:
 
 - [RP2040](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerRP2040.html)
 - [ESP32](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerESP32.html)
