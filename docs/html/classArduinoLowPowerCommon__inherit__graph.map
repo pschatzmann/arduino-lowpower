@@ -1,0 +1,7 @@
+<map id="ArduinoLowPowerCommon" name="ArduinoLowPowerCommon">
+<area shape="rect" id="node1" title="Common API for power saving modes for different processor architectures." alt="" coords="5,81,203,108"/>
+<area shape="rect" id="node2" href="$classArduinoLowPowerESP32.html" title="Low Power Management for ESP32." alt="" coords="259,5,437,32"/>
+<area shape="rect" id="node3" href="$classArduinoLowPowerESP8266.html" title="Low Power Management for ESP8266." alt="" coords="251,56,445,83"/>
+<area shape="rect" id="node4" href="$classArduinoLowPowerRP2040.html" title="Low Power Management for RP2040." alt="" coords="252,107,444,133"/>
+<area shape="rect" id="node5" href="$classArduinoLowPowerSAMD.html" title="Low Power Management for SAMD. Depends on RTCZero!" alt="" coords="259,157,437,184"/>
+</map>

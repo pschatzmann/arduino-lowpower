@@ -1,0 +1,4 @@
+<map id="ArduinoLowPowerESP32" name="ArduinoLowPowerESP32">
+<area shape="rect" id="node1" title="Low Power Management for ESP32." alt="" coords="15,80,193,107"/>
+<area shape="rect" id="node2" href="$classArduinoLowPowerCommon.html" title="Common API for power saving modes for different processor architectures." alt="" coords="5,5,203,32"/>
+</map>
