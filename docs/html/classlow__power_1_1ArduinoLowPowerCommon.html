@@ -84,11 +84,13 @@ Inheritance diagram for low_power::ArduinoLowPowerCommon:</div>
 <div class="dyncontent">
 <div class="center"><img src="classlow__power_1_1ArduinoLowPowerCommon__inherit__graph.png" border="0" usemap="#alow__power_1_1ArduinoLowPowerCommon_inherit__map" alt="Inheritance graph"/></div>
 <map name="alow__power_1_1ArduinoLowPowerCommon_inherit__map" id="alow__power_1_1ArduinoLowPowerCommon_inherit__map">
-<area shape="rect" title="Common API for power saving modes for different processor architectures." alt="" coords="5,104,221,145"/>
-<area shape="rect" href="classlow__power_1_1ArduinoLowPowerESP32.html" title="Low Power Management for ESP32." alt="" coords="289,5,505,47"/>
-<area shape="rect" href="classlow__power_1_1ArduinoLowPowerESP8266.html" title="Low Power Management for ESP8266." alt="" coords="289,71,505,112"/>
-<area shape="rect" href="classlow__power_1_1ArduinoLowPowerRP2040.html" title="Low Power Management for RP2040. In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="289,136,505,177"/>
-<area shape="rect" href="classlow__power_1_1ArduinoLowPowerSAMD.html" title="Low Power Management for SAMD. Depends on RTCZero!" alt="" coords="269,202,525,229"/>
+<area shape="rect" title="Common API for power saving modes for different processor architectures." alt="" coords="5,169,221,211"/>
+<area shape="rect" href="classlow__power_1_1ArduinoLowPowerATTiny.html" title="Low Power Management for ATTiny:" alt="" coords="289,5,505,47"/>
+<area shape="rect" href="classlow__power_1_1ArduinoLowPowerESP32.html" title="Low Power Management for ESP32:" alt="" coords="289,71,505,112"/>
+<area shape="rect" href="classlow__power_1_1ArduinoLowPowerESP8266.html" title="Low Power Management for ESP8266." alt="" coords="289,136,505,177"/>
+<area shape="rect" href="classlow__power_1_1ArduinoLowPowerRP2040.html" title="Low Power Management for RP2040: In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="289,201,505,243"/>
+<area shape="rect" href="classlow__power_1_1ArduinoLowPowerSAMD.html" title="Low Power Management for SAMD. Depends on RTCZero!" alt="" coords="269,267,525,294"/>
+<area shape="rect" href="classlow__power_1_1ArduinoLowPowerTemplate.html" title="Low Power Management for TBD." alt="" coords="289,319,505,360"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -126,14 +128,29 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a84158f324b475705731b4ed7b9d57df3">operator bool</a> ()</td></tr>
 <tr class="memdesc:a84158f324b475705731b4ed7b9d57df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">same as <a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a3f2922d000c3949c4db35f37e252eca3" title="Checks if we are active (not sleeping)">isActive()</a> <br /></td></tr>
 <tr class="separator:a84158f324b475705731b4ed7b9d57df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ae9d7d9df1ac06f96f3819d32fd3bd3"><td class="memItemLeft" align="right" valign="top"><a id="a0ae9d7d9df1ac06f96f3819d32fd3bd3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a0ae9d7d9df1ac06f96f3819d32fd3bd3">setSleepMode</a> (sleep_mode_enum_t mode)</td></tr>
-<tr class="memdesc:a0ae9d7d9df1ac06f96f3819d32fd3bd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the sleep mode. <br /></td></tr>
-<tr class="separator:a0ae9d7d9df1ac06f96f3819d32fd3bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68ec0548877d53a2383a7181692876a"><td class="memItemLeft" align="right" valign="top"><a id="ad68ec0548877d53a2383a7181692876a"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#ad68ec0548877d53a2383a7181692876a">setSleepMode</a> (sleep_mode_enum_t mode)</td></tr>
+<tr class="memdesc:ad68ec0548877d53a2383a7181692876a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the sleep mode. <br /></td></tr>
+<tr class="separator:ad68ec0548877d53a2383a7181692876a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a443ef48c92c0ce21eb55ea2a6e375f17"><td class="memItemLeft" align="right" valign="top"><a id="a443ef48c92c0ce21eb55ea2a6e375f17"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a443ef48c92c0ce21eb55ea2a6e375f17">process</a> ()</td></tr>
 <tr class="memdesc:a443ef48c92c0ce21eb55ea2a6e375f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the processing to be active or sleeping based on the set definitions. <br /></td></tr>
 <tr class="separator:a443ef48c92c0ce21eb55ea2a6e375f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab218c6bfecd64dd50450ac9a2d3c7b9c"><td class="memItemLeft" align="right" valign="top"><a id="ab218c6bfecd64dd50450ac9a2d3c7b9c"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#ab218c6bfecd64dd50450ac9a2d3c7b9c">isProcessingOnSleep</a> (sleep_mode_enum_t sleep_mode)=0</td></tr>
+<tr class="memdesc:ab218c6bfecd64dd50450ac9a2d3c7b9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if processing is possible in the current sleep mode. <br /></td></tr>
+<tr class="separator:ab218c6bfecd64dd50450ac9a2d3c7b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae57f1903e865e848959781fa828bd079"><td class="memItemLeft" align="right" valign="top"><a id="ae57f1903e865e848959781fa828bd079"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#ae57f1903e865e848959781fa828bd079">isProcessingOnSleep</a> ()</td></tr>
+<tr class="memdesc:ae57f1903e865e848959781fa828bd079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if processing is possible in the current sleep mode. <br /></td></tr>
+<tr class="separator:ae57f1903e865e848959781fa828bd079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae28314e4b5e59e16333d9c727288a55e"><td class="memItemLeft" align="right" valign="top"><a id="ae28314e4b5e59e16333d9c727288a55e"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isModeSupported</b> (sleep_mode_enum_t sleep_mode)</td></tr>
+<tr class="separator:ae28314e4b5e59e16333d9c727288a55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3bbe508f285c9c57f14d5941c733967"><td class="memItemLeft" align="right" valign="top"><a id="ac3bbe508f285c9c57f14d5941c733967"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#ac3bbe508f285c9c57f14d5941c733967">clear</a> ()</td></tr>
+<tr class="memdesc:ac3bbe508f285c9c57f14d5941c733967"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset the processing <br /></td></tr>
+<tr class="separator:ac3bbe508f285c9c57f14d5941c733967"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>

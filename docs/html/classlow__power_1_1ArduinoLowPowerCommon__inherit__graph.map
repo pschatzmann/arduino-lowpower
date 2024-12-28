@@ -1,7 +1,9 @@
 <map id="low_power::ArduinoLowPowerCommon" name="low_power::ArduinoLowPowerCommon">
-<area shape="rect" id="node1" title="Common API for power saving modes for different processor architectures." alt="" coords="5,104,221,145"/>
-<area shape="rect" id="node2" href="$classlow__power_1_1ArduinoLowPowerESP32.html" title="Low Power Management for ESP32." alt="" coords="289,5,505,47"/>
-<area shape="rect" id="node3" href="$classlow__power_1_1ArduinoLowPowerESP8266.html" title="Low Power Management for ESP8266." alt="" coords="289,71,505,112"/>
-<area shape="rect" id="node4" href="$classlow__power_1_1ArduinoLowPowerRP2040.html" title="Low Power Management for RP2040. In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="289,136,505,177"/>
-<area shape="rect" id="node5" href="$classlow__power_1_1ArduinoLowPowerSAMD.html" title="Low Power Management for SAMD. Depends on RTCZero!" alt="" coords="269,202,525,229"/>
+<area shape="rect" id="node1" title="Common API for power saving modes for different processor architectures." alt="" coords="5,169,221,211"/>
+<area shape="rect" id="node2" href="$classlow__power_1_1ArduinoLowPowerATTiny.html" title="Low Power Management for ATTiny:" alt="" coords="289,5,505,47"/>
+<area shape="rect" id="node3" href="$classlow__power_1_1ArduinoLowPowerESP32.html" title="Low Power Management for ESP32:" alt="" coords="289,71,505,112"/>
+<area shape="rect" id="node4" href="$classlow__power_1_1ArduinoLowPowerESP8266.html" title="Low Power Management for ESP8266." alt="" coords="289,136,505,177"/>
+<area shape="rect" id="node5" href="$classlow__power_1_1ArduinoLowPowerRP2040.html" title="Low Power Management for RP2040: In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="289,201,505,243"/>
+<area shape="rect" id="node6" href="$classlow__power_1_1ArduinoLowPowerSAMD.html" title="Low Power Management for SAMD. Depends on RTCZero!" alt="" coords="269,267,525,294"/>
+<area shape="rect" id="node7" href="$classlow__power_1_1ArduinoLowPowerTemplate.html" title="Low Power Management for TBD." alt="" coords="289,319,505,360"/>
 </map>

@@ -1,4 +1,4 @@
 <map id="low_power::ArduinoLowPowerRP2040" name="low_power::ArduinoLowPowerRP2040">
-<area shape="rect" id="node1" title="Low Power Management for RP2040. In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="5,95,221,136"/>
+<area shape="rect" id="node1" title="Low Power Management for RP2040: In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="5,95,221,136"/>
 <area shape="rect" id="node2" href="$classlow__power_1_1ArduinoLowPowerCommon.html" title="Common API for power saving modes for different processor architectures." alt="" coords="5,5,221,47"/>
 </map>

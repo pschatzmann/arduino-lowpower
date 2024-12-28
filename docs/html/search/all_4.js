@@ -1,13 +1,5 @@
 var searchData=
 [
-  ['setactive_11',['setActive',['../classlow__power_1_1ArduinoLowPowerCommon.html#aaf30eb9a9dd61492140ad266ead5a82e',1,'low_power::ArduinoLowPowerCommon']]],
-  ['setactivetime_12',['setActiveTime',['../classlow__power_1_1ArduinoLowPowerCommon.html#a0393a6d3a27728a83be465af899d5b8b',1,'low_power::ArduinoLowPowerCommon']]],
-  ['setdeepsleepoption_13',['setDeepSleepOption',['../classlow__power_1_1ArduinoLowPowerESP8266.html#a0f03f1967b90b155a53889f23becfd24',1,'low_power::ArduinoLowPowerESP8266']]],
-  ['setinstant_14',['setInstant',['../classlow__power_1_1ArduinoLowPowerESP8266.html#a12c529efb35c0453cbf3fdba64d125cc',1,'low_power::ArduinoLowPowerESP8266']]],
-  ['setrestart_15',['setRestart',['../classlow__power_1_1ArduinoLowPowerRP2040.html#a8efc53633bf0f5c200eb7d9f98ca0623',1,'low_power::ArduinoLowPowerRP2040']]],
-  ['setsleepmode_16',['setSleepMode',['../classlow__power_1_1ArduinoLowPowerCommon.html#a0ae9d7d9df1ac06f96f3819d32fd3bd3',1,'low_power::ArduinoLowPowerCommon']]],
-  ['setsleeptime_17',['setSleepTime',['../classlow__power_1_1ArduinoLowPowerRP2040.html#a8d52d1f2363194bd4cec19320070ab49',1,'low_power::ArduinoLowPowerRP2040::setSleepTime()'],['../classlow__power_1_1ArduinoLowPowerSAMD.html#a91d6c2079c95723d96c7b5b4a30b8ccf',1,'low_power::ArduinoLowPowerSAMD::setSleepTime()'],['../classlow__power_1_1ArduinoLowPowerESP8266.html#adc164f9c7a4fb7954c04583ed4f2c291',1,'low_power::ArduinoLowPowerESP8266::setSleepTime()'],['../classlow__power_1_1ArduinoLowPowerESP32.html#a39774a73cefa6a0dc608bbe1cd76ac57',1,'low_power::ArduinoLowPowerESP32::setSleepTime()'],['../classlow__power_1_1ArduinoLowPowerCommon.html#a8b1587a2e9bc4b6954bc5cf5ec7ba151',1,'low_power::ArduinoLowPowerCommon::setSleepTime()']]],
-  ['setwakeuptype_18',['setWakeupType',['../classlow__power_1_1ArduinoLowPowerESP32.html#a3632fa0b05a576dbd5877ee8cb0a1aa6',1,'low_power::ArduinoLowPowerESP32']]],
-  ['sleep_19',['sleep',['../classlow__power_1_1ArduinoLowPowerCommon.html#a25f7379154aada3b0756f4c4a646073b',1,'low_power::ArduinoLowPowerCommon::sleep()'],['../classlow__power_1_1ArduinoLowPowerESP32.html#a507b64a4469c4fb175df8a12c4945ce6',1,'low_power::ArduinoLowPowerESP32::sleep()'],['../classlow__power_1_1ArduinoLowPowerESP8266.html#aef80685f725384304ad7702043d40b6e',1,'low_power::ArduinoLowPowerESP8266::sleep()'],['../classlow__power_1_1ArduinoLowPowerRP2040.html#addf5e54b8e9c56dfffa102fd8c4105aa',1,'low_power::ArduinoLowPowerRP2040::sleep()'],['../classlow__power_1_1ArduinoLowPowerSAMD.html#a8bbbb651ddde9665431aafdd6dd83b7c',1,'low_power::ArduinoLowPowerSAMD::sleep()']]],
-  ['sleepfor_20',['sleepFor',['../classlow__power_1_1ArduinoLowPowerCommon.html#a8a01cf921fe08a3e5437cfa1a5714c92',1,'low_power::ArduinoLowPowerCommon']]]
+  ['pinchangedef_13',['PinChangeDef',['../structlow__power_1_1ArduinoLowPowerRP2040_1_1PinChangeDef.html',1,'low_power::ArduinoLowPowerRP2040']]],
+  ['process_14',['process',['../classlow__power_1_1ArduinoLowPowerCommon.html#a443ef48c92c0ce21eb55ea2a6e375f17',1,'low_power::ArduinoLowPowerCommon']]]
 ];

@@ -47,21 +47,12 @@ Further examples can be found [here](examples).
 
 There is a common API: however each architecture might support some specific additional methods to fine tune the processing:
 
-- RP2040
-- ESP32
-- ESP8266
-- SAMD
+- [RP2040](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerRP2040.html)
+- [ESP32](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerESP32.html)
+- [ESP8266](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerESP8266.html)
+- [SAMD](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerSAMD.html)
 
 ## Project Status
 
-The project is compiling w/o errors, but not all functionality has been tested.
-Any help and feedback is welcome:
-
-          | Deep Sleep | Light Sleep | Modem Sleep
-----------|------------|-------------|---------------
-ESP32     | not tested | not tested  | not tested
-ESP8266   | not tested | not tested  | not tested
-RP2040    | not tested | not tested  | not tested
-SAMD      | not tested | not tested  | not tested
-
-
+The project is compiling w/o errors, [but not all functionality has been tested](https://github.com/pschatzmann/arduino-lowpower/wiki/Testing-Status).
+Any help and feedback is welcome!

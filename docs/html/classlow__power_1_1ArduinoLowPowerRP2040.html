@@ -77,7 +77,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Low Power Management for RP2040. In lightSleep we just reduce the processor system clock and voltage. In deepSleep we actuall set the processor as dormant.  
+<p>Low Power Management for RP2040: In lightSleep we just reduce the processor system clock and voltage. In deepSleep we actually set the processor as dormant, but we must choose between the wakeup by a pin or a timer based wakeup. Only one single wakeup gpio pin is supported!  
  <a href="classlow__power_1_1ArduinoLowPowerRP2040.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="LowPowerRP2040_8h_source.html">LowPowerRP2040.h</a>&gt;</code></p>
@@ -86,16 +86,7 @@ Inheritance diagram for low_power::ArduinoLowPowerRP2040:</div>
 <div class="dyncontent">
 <div class="center"><img src="classlow__power_1_1ArduinoLowPowerRP2040__inherit__graph.png" border="0" usemap="#alow__power_1_1ArduinoLowPowerRP2040_inherit__map" alt="Inheritance graph"/></div>
 <map name="alow__power_1_1ArduinoLowPowerRP2040_inherit__map" id="alow__power_1_1ArduinoLowPowerRP2040_inherit__map">
-<area shape="rect" title="Low Power Management for RP2040. In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="5,95,221,136"/>
-<area shape="rect" href="classlow__power_1_1ArduinoLowPowerCommon.html" title="Common API for power saving modes for different processor architectures." alt="" coords="5,5,221,47"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for low_power::ArduinoLowPowerRP2040:</div>
-<div class="dyncontent">
-<div class="center"><img src="classlow__power_1_1ArduinoLowPowerRP2040__coll__graph.png" border="0" usemap="#alow__power_1_1ArduinoLowPowerRP2040_coll__map" alt="Collaboration graph"/></div>
-<map name="alow__power_1_1ArduinoLowPowerRP2040_coll__map" id="alow__power_1_1ArduinoLowPowerRP2040_coll__map">
-<area shape="rect" title="Low Power Management for RP2040. In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="5,95,221,136"/>
+<area shape="rect" title="Low Power Management for RP2040: In lightSleep we just reduce the processor system clock and voltage...." alt="" coords="5,95,221,136"/>
 <area shape="rect" href="classlow__power_1_1ArduinoLowPowerCommon.html" title="Common API for power saving modes for different processor architectures." alt="" coords="5,5,221,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -107,6 +98,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3b5dc9abe26920980d6a02bd8b3dc1fb"><td class="memItemLeft" align="right" valign="top"><a id="a3b5dc9abe26920980d6a02bd8b3dc1fb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerRP2040.html#a3b5dc9abe26920980d6a02bd8b3dc1fb">isProcessingOnSleep</a> (sleep_mode_enum_t sleep_mode)</td></tr>
+<tr class="memdesc:a3b5dc9abe26920980d6a02bd8b3dc1fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if processing is possible in the current sleep mode. <br /></td></tr>
+<tr class="separator:a3b5dc9abe26920980d6a02bd8b3dc1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addf5e54b8e9c56dfffa102fd8c4105aa"><td class="memItemLeft" align="right" valign="top"><a id="addf5e54b8e9c56dfffa102fd8c4105aa"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerRP2040.html#addf5e54b8e9c56dfffa102fd8c4105aa">sleep</a> (void) override</td></tr>
 <tr class="memdesc:addf5e54b8e9c56dfffa102fd8c4105aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets processor into sleep mode <br /></td></tr>
@@ -120,7 +115,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ae9f0f6bd9237b6424b25481c93b9382f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the wakup pin. <br /></td></tr>
 <tr class="separator:ae9f0f6bd9237b6424b25481c93b9382f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff30d0f1c7113a5b264d8f5d015743f4"><td class="memItemLeft" align="right" valign="top"><a id="aff30d0f1c7113a5b264d8f5d015743f4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerRP2040.html#aff30d0f1c7113a5b264d8f5d015743f4">clear</a> ()</td></tr>
+<tr class="memdesc:aff30d0f1c7113a5b264d8f5d015743f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset the processing <br /></td></tr>
 <tr class="separator:aff30d0f1c7113a5b264d8f5d015743f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8efc53633bf0f5c200eb7d9f98ca0623"><td class="memItemLeft" align="right" valign="top"><a id="a8efc53633bf0f5c200eb7d9f98ca0623"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerRP2040.html#a8efc53633bf0f5c200eb7d9f98ca0623">setRestart</a> (bool flag)</td></tr>
@@ -146,14 +142,21 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a84158f324b475705731b4ed7b9d57df3">operator bool</a> ()</td></tr>
 <tr class="memdesc:a84158f324b475705731b4ed7b9d57df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">same as <a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a3f2922d000c3949c4db35f37e252eca3" title="Checks if we are active (not sleeping)">isActive()</a> <br /></td></tr>
 <tr class="separator:a84158f324b475705731b4ed7b9d57df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ae9d7d9df1ac06f96f3819d32fd3bd3"><td class="memItemLeft" align="right" valign="top"><a id="a0ae9d7d9df1ac06f96f3819d32fd3bd3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a0ae9d7d9df1ac06f96f3819d32fd3bd3">setSleepMode</a> (sleep_mode_enum_t mode)</td></tr>
-<tr class="memdesc:a0ae9d7d9df1ac06f96f3819d32fd3bd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the sleep mode. <br /></td></tr>
-<tr class="separator:a0ae9d7d9df1ac06f96f3819d32fd3bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68ec0548877d53a2383a7181692876a"><td class="memItemLeft" align="right" valign="top"><a id="ad68ec0548877d53a2383a7181692876a"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#ad68ec0548877d53a2383a7181692876a">setSleepMode</a> (sleep_mode_enum_t mode)</td></tr>
+<tr class="memdesc:ad68ec0548877d53a2383a7181692876a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the sleep mode. <br /></td></tr>
+<tr class="separator:ad68ec0548877d53a2383a7181692876a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a443ef48c92c0ce21eb55ea2a6e375f17"><td class="memItemLeft" align="right" valign="top"><a id="a443ef48c92c0ce21eb55ea2a6e375f17"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#a443ef48c92c0ce21eb55ea2a6e375f17">process</a> ()</td></tr>
 <tr class="memdesc:a443ef48c92c0ce21eb55ea2a6e375f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the processing to be active or sleeping based on the set definitions. <br /></td></tr>
 <tr class="separator:a443ef48c92c0ce21eb55ea2a6e375f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae57f1903e865e848959781fa828bd079"><td class="memItemLeft" align="right" valign="top"><a id="ae57f1903e865e848959781fa828bd079"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerCommon.html#ae57f1903e865e848959781fa828bd079">isProcessingOnSleep</a> ()</td></tr>
+<tr class="memdesc:ae57f1903e865e848959781fa828bd079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if processing is possible in the current sleep mode. <br /></td></tr>
+<tr class="separator:ae57f1903e865e848959781fa828bd079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae28314e4b5e59e16333d9c727288a55e"><td class="memItemLeft" align="right" valign="top"><a id="ae28314e4b5e59e16333d9c727288a55e"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isModeSupported</b> (sleep_mode_enum_t sleep_mode)</td></tr>
+<tr class="separator:ae28314e4b5e59e16333d9c727288a55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -222,7 +225,7 @@ sleep_mode_enum_t&#160;</td><td class="memItemRight" valign="bottom"><b>sleep_mo
 <tr class="separator:a36573d35ac94427694cdfa307f6b1555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Low Power Management for RP2040. In lightSleep we just reduce the processor system clock and voltage. In deepSleep we actuall set the processor as dormant. </p>
+<div class="textblock"><p>Low Power Management for RP2040: In lightSleep we just reduce the processor system clock and voltage. In deepSleep we actually set the processor as dormant, but we must choose between the wakeup by a pin or a timer based wakeup. Only one single wakeup gpio pin is supported! </p>
 <dl class="section author"><dt>Author</dt><dd>Phil Schatzmann for details see<ul>
 <li><a href="https://github.com/raspberrypi/pico-extras/tree/master/src/rp2_common/pico_sleep">https://github.com/raspberrypi/pico-extras/tree/master/src/rp2_common/pico_sleep</a></li>
 <li><a href="https://github.com/matthias-bs/arduino-pico-sleep/tree/main/src">https://github.com/matthias-bs/arduino-pico-sleep/tree/main/src</a></li>

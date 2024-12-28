@@ -75,96 +75,123 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;PolledTimeout.h&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;coredecls.h&gt;</span>          <span class="comment">// crc32()</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;include/WiFiState.h&gt;</span>  <span class="comment">// WiFiState structure details</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;LowPowerCommon.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;gpio.h&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>low_power {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html">ArduinoLowPowerESP8266</a> : <span class="keyword">public</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerCommon.html">ArduinoLowPowerCommon</a> {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aef80685f725384304ad7702043d40b6e">   35</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aef80685f725384304ad7702043d40b6e">sleep</a>(<span class="keywordtype">void</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> rc = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">switch</span> (sleep_mode) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="comment">// In Modem-sleep mode, ESP8266 will close the Wi-Fi module circuit</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="comment">// between the two DTIM Beacon intervals in order to save power</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::modemSleep:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        rc = wifi_set_sleep_type(MODEM_SLEEP_T);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="comment">// wakup by external pin</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::lightSleep:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> (sleep_time_us != 0 || gpio_count == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        rc = wifi_set_sleep_type(LIGHT_SLEEP_T);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="comment">// responsible for periodic wake-ups</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::deepSleep: {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> (gpio_count != 0 || sleep_time_us == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        system_deep_sleep_set_option(sleep_option);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> (is_instant)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;          system_deep_sleep(sleep_time_us);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;          system_deep_sleep_instant(sleep_time_us);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        rc = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;LowPowerCommon.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;gpio.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>low_power {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html">ArduinoLowPowerESP8266</a> : <span class="keyword">public</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerCommon.html">ArduinoLowPowerCommon</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a1005be54ab7dab4a7fb54e61c9fd1e2f">   33</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a1005be54ab7dab4a7fb54e61c9fd1e2f">isProcessingOnSleep</a>(sleep_mode_enum_t sleep_mode) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> result = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">switch</span> (sleep_mode) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::modemSleep:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        result = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::noSleep:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        result = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::lightSleep:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        result = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::deepSleep:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        result = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aef80685f725384304ad7702043d40b6e">   53</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aef80685f725384304ad7702043d40b6e">sleep</a>(<span class="keywordtype">void</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">bool</span> rc = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">switch</span> (sleep_mode) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="comment">// In Modem-sleep mode, ESP8266 will close the Wi-Fi module circuit</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="comment">// between the two DTIM Beacon intervals in order to save power</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::modemSleep:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        rc = wifi_set_sleep_type(MODEM_SLEEP_T);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::noSleep:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        rc = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> rc;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#adc164f9c7a4fb7954c04583ed4f2c291">   70</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#adc164f9c7a4fb7954c04583ed4f2c291">setSleepTime</a>(uint32_t time, time_unit_t time_unit_type)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (sleep_mode == sleep_mode_enum_t::modemSleep) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="classlow__power_1_1ArduinoLowPowerCommon.html#a0ae9d7d9df1ac06f96f3819d32fd3bd3">setSleepMode</a>(sleep_mode_enum_t::deepSleep);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    sleep_time_us = (toUs(time, time_unit_type));</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> gpio_count == 0;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="comment">// wakup by external pin</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::lightSleep:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">if</span> (sleep_time_us != 0 || gpio_count == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        rc = wifi_set_sleep_type(LIGHT_SLEEP_T);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="comment">// responsible for periodic wake-ups</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::deepSleep: {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (gpio_count != 0 || sleep_time_us == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        system_deep_sleep_set_option(sleep_option);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">if</span> (is_instant)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;          system_deep_sleep(sleep_time_us);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;          system_deep_sleep_instant(sleep_time_us);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aff4325c8f04ddb25bb167da4245604c0">   77</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aff4325c8f04ddb25bb167da4245604c0">addWakeupPin</a>(<span class="keywordtype">int</span> pin, pin_change_t change_type)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (sleep_mode == sleep_mode_enum_t::modemSleep) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="classlow__power_1_1ArduinoLowPowerCommon.html#a0ae9d7d9df1ac06f96f3819d32fd3bd3">setSleepMode</a>(sleep_mode_enum_t::lightSleep);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    GPIO_INT_TYPE int_type = (change_type == pin_change_t::on_high)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                 ? GPIO_PIN_INTR_HILEVEL</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                 : GPIO_PIN_INTR_LOLEVEL;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    gpio_pin_wakeup_enable(digitalPinToInterrupt(pin), int_type);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    gpio_count++;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> sleep_time_us == 0;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        rc = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">case</span> sleep_mode_enum_t::noSleep:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        rc = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> rc;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  }</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a0f03f1967b90b155a53889f23becfd24">   94</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a0f03f1967b90b155a53889f23becfd24">setDeepSleepOption</a>(uint8_t option) { sleep_option = option; }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a12c529efb35c0453cbf3fdba64d125cc">   97</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a12c529efb35c0453cbf3fdba64d125cc">setInstant</a>(<span class="keywordtype">bool</span> instant) { is_instant = instant; }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordtype">void</span> clear() {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    sleep_time_us = 0;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    sleep_option = 1;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    is_instant = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    gpio_count = 0;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#adc164f9c7a4fb7954c04583ed4f2c291">   88</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#adc164f9c7a4fb7954c04583ed4f2c291">setSleepTime</a>(uint32_t time, time_unit_t time_unit_type)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (sleep_mode == sleep_mode_enum_t::modemSleep) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="classlow__power_1_1ArduinoLowPowerCommon.html#ad68ec0548877d53a2383a7181692876a">setSleepMode</a>(sleep_mode_enum_t::deepSleep);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    sleep_time_us = (toUs(time, time_unit_type));</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">return</span> gpio_count == 0;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aff4325c8f04ddb25bb167da4245604c0">   95</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aff4325c8f04ddb25bb167da4245604c0">addWakeupPin</a>(<span class="keywordtype">int</span> pin, pin_change_t change_type)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (sleep_mode == sleep_mode_enum_t::modemSleep) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="classlow__power_1_1ArduinoLowPowerCommon.html#ad68ec0548877d53a2383a7181692876a">setSleepMode</a>(sleep_mode_enum_t::lightSleep);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    GPIO_INT_TYPE int_type = (change_type == pin_change_t::on_high)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                 ? GPIO_PIN_INTR_HILEVEL</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                 : GPIO_PIN_INTR_LOLEVEL;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    gpio_pin_wakeup_enable(digitalPinToInterrupt(pin), int_type);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    gpio_count++;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> sleep_time_us == 0;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  }</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  uint64_t sleep_time_us = 0;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  uint8_t sleep_option = 1;  <span class="comment">// 1 (rf calibration)</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keywordtype">bool</span> is_instant = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  uint16_t gpio_count = 0;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">static</span> ArduinoLowPowerESP8266 LowPower;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}  <span class="comment">// namespace low_power</span></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerCommon_html"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerCommon.html">low_power::ArduinoLowPowerCommon</a></div><div class="ttdoc">Common API for power saving modes for different processor architectures.</div><div class="ttdef"><b>Definition:</b> LowPowerCommon.h:32</div></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerCommon_html_a0ae9d7d9df1ac06f96f3819d32fd3bd3"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerCommon.html#a0ae9d7d9df1ac06f96f3819d32fd3bd3">low_power::ArduinoLowPowerCommon::setSleepMode</a></div><div class="ttdeci">virtual bool setSleepMode(sleep_mode_enum_t mode)</div><div class="ttdoc">Defines the sleep mode.</div><div class="ttdef"><b>Definition:</b> LowPowerCommon.h:70</div></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html">low_power::ArduinoLowPowerESP8266</a></div><div class="ttdoc">Low Power Management for ESP8266.</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:32</div></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_a0f03f1967b90b155a53889f23becfd24"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#a0f03f1967b90b155a53889f23becfd24">low_power::ArduinoLowPowerESP8266::setDeepSleepOption</a></div><div class="ttdeci">void setDeepSleepOption(uint8_t option)</div><div class="ttdoc">Deep sleep options: values from 0 to 4 1: RF calibration: Power consumption is high 2: No RF calibrat...</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:94</div></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_a12c529efb35c0453cbf3fdba64d125cc"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#a12c529efb35c0453cbf3fdba64d125cc">low_power::ArduinoLowPowerESP8266::setInstant</a></div><div class="ttdeci">void setInstant(bool instant)</div><div class="ttdoc">if instant == true -&gt; instantly deep sleep w/o delay</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:97</div></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_adc164f9c7a4fb7954c04583ed4f2c291"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#adc164f9c7a4fb7954c04583ed4f2c291">low_power::ArduinoLowPowerESP8266::setSleepTime</a></div><div class="ttdeci">bool setSleepTime(uint32_t time, time_unit_t time_unit_type) override</div><div class="ttdoc">Defines the sleep time.</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:70</div></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_aef80685f725384304ad7702043d40b6e"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#aef80685f725384304ad7702043d40b6e">low_power::ArduinoLowPowerESP8266::sleep</a></div><div class="ttdeci">bool sleep(void) override</div><div class="ttdoc">sets processor into sleep mode</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:35</div></div>
-<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_aff4325c8f04ddb25bb167da4245604c0"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#aff4325c8f04ddb25bb167da4245604c0">low_power::ArduinoLowPowerESP8266::addWakeupPin</a></div><div class="ttdeci">bool addWakeupPin(int pin, pin_change_t change_type) override</div><div class="ttdoc">Defines the wakup pin.</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:77</div></div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a0f03f1967b90b155a53889f23becfd24">  112</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a0f03f1967b90b155a53889f23becfd24">setDeepSleepOption</a>(uint8_t option) { sleep_option = option; }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a12c529efb35c0453cbf3fdba64d125cc">  115</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#a12c529efb35c0453cbf3fdba64d125cc">setInstant</a>(<span class="keywordtype">bool</span> instant) { is_instant = instant; }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordtype">bool</span> isModeSupported(sleep_mode_enum_t sleep_mode)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aac9d53074e11b353bcb3d43d18a5f594">  121</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classlow__power_1_1ArduinoLowPowerESP8266.html#aac9d53074e11b353bcb3d43d18a5f594">clear</a>() {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classlow__power_1_1ArduinoLowPowerCommon.html#ac3bbe508f285c9c57f14d5941c733967">ArduinoLowPowerCommon::clear</a>();</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    sleep_time_us = 0;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    sleep_option = 1;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    is_instant = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    gpio_count = 0;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  uint64_t sleep_time_us = 0;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  uint8_t sleep_option = 1;  <span class="comment">// 1 (rf calibration)</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordtype">bool</span> is_instant = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  uint16_t gpio_count = 0;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;};</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">static</span> ArduinoLowPowerESP8266 LowPower;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}  <span class="comment">// namespace low_power</span></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerCommon_html"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerCommon.html">low_power::ArduinoLowPowerCommon</a></div><div class="ttdoc">Common API for power saving modes for different processor architectures.</div><div class="ttdef"><b>Definition:</b> LowPowerCommon.h:33</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerCommon_html_ac3bbe508f285c9c57f14d5941c733967"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerCommon.html#ac3bbe508f285c9c57f14d5941c733967">low_power::ArduinoLowPowerCommon::clear</a></div><div class="ttdeci">virtual void clear()</div><div class="ttdoc">reset the processing</div><div class="ttdef"><b>Definition:</b> LowPowerCommon.h:116</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerCommon_html_ad68ec0548877d53a2383a7181692876a"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerCommon.html#ad68ec0548877d53a2383a7181692876a">low_power::ArduinoLowPowerCommon::setSleepMode</a></div><div class="ttdeci">virtual bool setSleepMode(sleep_mode_enum_t mode)</div><div class="ttdoc">Defines the sleep mode.</div><div class="ttdef"><b>Definition:</b> LowPowerCommon.h:72</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html">low_power::ArduinoLowPowerESP8266</a></div><div class="ttdoc">Low Power Management for ESP8266.</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:30</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_a0f03f1967b90b155a53889f23becfd24"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#a0f03f1967b90b155a53889f23becfd24">low_power::ArduinoLowPowerESP8266::setDeepSleepOption</a></div><div class="ttdeci">void setDeepSleepOption(uint8_t option)</div><div class="ttdoc">Deep sleep options: values from 0 to 4 1: RF calibration: Power consumption is high 2: No RF calibrat...</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:112</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_a1005be54ab7dab4a7fb54e61c9fd1e2f"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#a1005be54ab7dab4a7fb54e61c9fd1e2f">low_power::ArduinoLowPowerESP8266::isProcessingOnSleep</a></div><div class="ttdeci">bool isProcessingOnSleep(sleep_mode_enum_t sleep_mode)</div><div class="ttdoc">Returns true if processing is possible in the current sleep mode.</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:33</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_a12c529efb35c0453cbf3fdba64d125cc"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#a12c529efb35c0453cbf3fdba64d125cc">low_power::ArduinoLowPowerESP8266::setInstant</a></div><div class="ttdeci">void setInstant(bool instant)</div><div class="ttdoc">if instant == true -&gt; instantly deep sleep w/o delay</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:115</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_aac9d53074e11b353bcb3d43d18a5f594"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#aac9d53074e11b353bcb3d43d18a5f594">low_power::ArduinoLowPowerESP8266::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">reset the processing</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:121</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_adc164f9c7a4fb7954c04583ed4f2c291"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#adc164f9c7a4fb7954c04583ed4f2c291">low_power::ArduinoLowPowerESP8266::setSleepTime</a></div><div class="ttdeci">bool setSleepTime(uint32_t time, time_unit_t time_unit_type) override</div><div class="ttdoc">Defines the sleep time.</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:88</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_aef80685f725384304ad7702043d40b6e"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#aef80685f725384304ad7702043d40b6e">low_power::ArduinoLowPowerESP8266::sleep</a></div><div class="ttdeci">bool sleep(void) override</div><div class="ttdoc">sets processor into sleep mode</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:53</div></div>
+<div class="ttc" id="aclasslow__power_1_1ArduinoLowPowerESP8266_html_aff4325c8f04ddb25bb167da4245604c0"><div class="ttname"><a href="classlow__power_1_1ArduinoLowPowerESP8266.html#aff4325c8f04ddb25bb167da4245604c0">low_power::ArduinoLowPowerESP8266::addWakeupPin</a></div><div class="ttdeci">bool addWakeupPin(int pin, pin_change_t change_type) override</div><div class="ttdoc">Defines the wakup pin.</div><div class="ttdef"><b>Definition:</b> LowPowerESP8266.h:95</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
