@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -149,6 +150,13 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memdesc:ae57f1903e865e848959781fa828bd079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if processing is possible in the current sleep mode. <br /></td></tr>
 <tr class="separator:ae57f1903e865e848959781fa828bd079"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a2de6aba1a0a7913005cb70a9d7bf8fc9"><td class="memItemLeft" align="right" valign="top"><a id="a2de6aba1a0a7913005cb70a9d7bf8fc9"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlow__power_1_1ArduinoLowPowerATTiny.html#a2de6aba1a0a7913005cb70a9d7bf8fc9">processWatchdogCycle</a> ()</td></tr>
+<tr class="memdesc:a2de6aba1a0a7913005cb70a9d7bf8fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by watchdog interrupt. <br /></td></tr>
+<tr class="separator:a2de6aba1a0a7913005cb70a9d7bf8fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa94c162bedf49385e30bfcf00c99c96d"><td class="memItemLeft" align="right" valign="top"><a id="aa94c162bedf49385e30bfcf00c99c96d"></a>
@@ -181,9 +189,9 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>sleep_time_us</b>
 <tr class="memitem:abfd9498b6107177e2747cf8d2c6524ee"><td class="memItemLeft" align="right" valign="top"><a id="abfd9498b6107177e2747cf8d2c6524ee"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>pin_mask</b> = 0</td></tr>
 <tr class="separator:abfd9498b6107177e2747cf8d2c6524ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e2a27d0817c6d988b33f73e32c3ad47"><td class="memItemLeft" align="right" valign="top"><a id="a7e2a27d0817c6d988b33f73e32c3ad47"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>timings_ms</b> [] = {15, 30, 60, 120, 250, 500, 1000, 2000}</td></tr>
-<tr class="separator:a7e2a27d0817c6d988b33f73e32c3ad47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a022d7eb1d9a4a3de09ff18c5449b467d"><td class="memItemLeft" align="right" valign="top"><a id="a022d7eb1d9a4a3de09ff18c5449b467d"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>timings_ms</b> [8] = {15, 30, 60, 120, 250, 500, 1000, 2000}</td></tr>
+<tr class="separator:a022d7eb1d9a4a3de09ff18c5449b467d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab307021c3cddbf8a70a391d4015cf6cb"><td class="memItemLeft" align="right" valign="top"><a id="ab307021c3cddbf8a70a391d4015cf6cb"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_active</b> = true</td></tr>
 <tr class="separator:ab307021c3cddbf8a70a391d4015cf6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>

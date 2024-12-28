@@ -10,6 +10,8 @@
 #  include "LowPowerRP2040.h"
 #elif defined(ARDUINO_ARCH_SAMD)
 #  include "LowPowerSAMD.h"
+#elif defined(ARDUINO_attiny)
+#  include "LowPowerATTiny.h"
 #else
 #  error The library is not compatible with your board
 #endif

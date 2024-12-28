@@ -3,8 +3,12 @@
 #include <avr/interrupt.h>
 #include <avr/power.h>  // Power management
 #include <avr/sleep.h>  // Sleep Modes
+#include <avr/wdt.h>
 
 #include "LowPowerCommon.h"
+
+//#include <SoftwareSerial.h>
+//SoftwareSerial Serial(2, 3);  // RX and TX
 
 namespace low_power {
 
@@ -14,8 +18,8 @@ ArduinoLowPowerATTiny *selfArduinoLowPowerATTiny = nullptr;
 /**
  * @brief Low Power Management for ATTiny:
  * - deep sleep: can be woken up by pins or time based. Internally
- * we use the watchdog. 
- * 
+ * we use the watchdog.
+ *
  * @author Phil Schatzmann
  * see https://www.re-innovation.co.uk/docs/sleep-modes-on-attiny85/
  */
@@ -42,7 +46,8 @@ class ArduinoLowPowerATTiny : public ArduinoLowPowerCommon {
       set_sleep_mode(SLEEP_MODE_IDLE);
     } else {
       // disable all except the timer 1
-      set_sleep_mode(SLEEP_MODE_IDLE) power_all_disable();
+      set_sleep_mode(SLEEP_MODE_IDLE);
+      power_all_disable();
       power_timer0_enable();
       delay(sleep_time_us / 1000);
       power_all_enable();
@@ -57,8 +62,10 @@ class ArduinoLowPowerATTiny : public ArduinoLowPowerCommon {
 
   bool addWakeupPin(int pin, pin_change_t change_type) override {
     // ADCSRA = 0;  // ADC disabled
-    attachPCINT(digitalPinToPinChangeInterrupt(pin), pinWakupCB,
-                change_type == pin_change_t::on_high ? RAISING : FALLING);
+    attachInterrupt(pin, pinWakupCB,
+                    change_type == pin_change_t::on_high
+                        ? RISING
+                        : FALLING);  // interrupt on falling edge of pin2
     return true;
   }
 
@@ -72,15 +79,24 @@ class ArduinoLowPowerATTiny : public ArduinoLowPowerCommon {
     set_sleep_mode(SLEEP_MODE_IDLE);
   }
 
+  /// Called by watchdog interrupt
+  static void processWatchdogCycle() {
+    if (selfArduinoLowPowerATTiny != nullptr &&
+        selfArduinoLowPowerATTiny->open_watchdog_cycle > 0) {
+      selfArduinoLowPowerATTiny->open_watchdog_cycle--;
+    }
+  }
+
  protected:
   int open_watchdog_cycle = 0;
   uint32_t sleep_time_us = 0;
   uint32_t pin_mask = 0;
-  uint16_t timings_ms[] = {15, 30, 60, 120, 250, 500, 1000, 2000};
+  uint16_t timings_ms[8] = {15, 30, 60, 120, 250, 500, 1000, 2000};
+
 
   void setupWatchdog() {
-    int seep_time_ms = sleep_time_us / 1000;
-    int idx = getTimeIdx(seep_time_ms);
+    int sleep_time_ms = sleep_time_us / 1000;
+    int idx = getTimeIdx(sleep_time_ms);
     open_watchdog_cycle = sleep_time_ms / timings_ms[idx];
     wdt_enable(idx);  // Set WDog
   }
@@ -111,17 +127,15 @@ class ArduinoLowPowerATTiny : public ArduinoLowPowerCommon {
   }
 };
 
-static ArduinoLowPowerTemplate LowPower;
+static ArduinoLowPowerATTiny LowPower;
 
 }  // namespace low_power
 
-ISR(PCINT0_vect) {}
 
-/// watchdog interrupt
+// watchdog interrupt
 ISR(WDT_vect) {
   wdt_reset();
-  if (selfArduinoLowPowerATTiny != nullptr &&
-      selfArduinoLowPowerATTiny->open_watchdog_cycle > 0) {
-    selfArduinoLowPowerATTiny->open_watchdog_cycle--;
-  }
+  if (low_power::selfArduinoLowPowerATTiny != nullptr)
+    low_power::selfArduinoLowPowerATTiny->processWatchdogCycle();
+
 }  // end of WDT_vect

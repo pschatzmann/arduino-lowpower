@@ -9,6 +9,7 @@ This library allows the use of the low power features for the following architec
 - ESP8266
 - RP2040
 - SAMD
+- ATTiny
 
 We support the sleep modes lightSleep and deepSleep: The difference between them is the power saving and wakeup time.
 
