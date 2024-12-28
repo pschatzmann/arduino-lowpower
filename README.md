@@ -12,7 +12,7 @@ This library allows the use of the low power features for the following architec
 
 We support the sleep modes lightSleep and deepSleep: The difference between them is the power saving and wakeup time.
 
-The common API supports the definition of
+The [common API]([common API](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerCommon.html)) supports the definition of
 
 - the sleep mode
 - the active time
@@ -24,6 +24,7 @@ The common API supports the definition of
 Here is an example that sets the processor into deep-sleep after 2 seconds of activity and let's it wake up by setting gpio pin 4 to active.
 
 ```C++
+#include "LowPower.h"
 
 void setup() {
   Serial.begin(115200);
@@ -56,3 +57,16 @@ There is a [common API](https://pschatzmann.github.io/arduino-lowpower/docs/html
 
 The project is compiling w/o errors, [but not all functionality has been tested](https://github.com/pschatzmann/arduino-lowpower/wiki/Testing-Status).
 Any help and feedback is welcome!
+
+
+## Installation in Arduino
+
+You can download the library as zip and call include Library -> zip library. Or you can git clone this project into the Arduino libraries folder e.g. with
+
+```
+cd  ~/Documents/Arduino/libraries
+git clone https://github.com/pschatzmann/arduino-lowpower.git
+```
+
+I recommend to use git because you can easily update to the latest version just by executing the ```git pull``` command in the project folder.
+If you want to
