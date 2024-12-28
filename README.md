@@ -12,7 +12,7 @@ This library allows the use of the low power features for the following architec
 
 We support the sleep modes lightSleep and deepSleep: The difference between them is the power saving and wakeup time.
 
-The [common API](common API(https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerCommon.html)) supports the definition of
+The [common API](https://pschatzmann.github.io/arduino-lowpower/docs/html/classlow__power_1_1ArduinoLowPowerCommon.html) supports the definition of
 
 - the sleep mode
 - the active time
