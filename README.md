@@ -1,6 +1,6 @@
 # Low Power Library
 
-If you want to process sensor readings powered by batteries it is critical that the power usage is minimized to extendd the battery life. This can be achieved by different means (e.g. reducing the cpu speed, adjusting the voltage) or by sleeping the processor. 
+If you want to process sensor readings powered by batteries it is critical that the power usage is minimized to extend the battery life. This can be achieved by different means (e.g. reducing the cpu speed, adjusting the voltage) or by sleeping the processor. 
 
 
 This library allows the use of the low power features for the following architechtures:
