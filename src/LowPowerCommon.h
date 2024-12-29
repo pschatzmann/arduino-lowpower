@@ -53,15 +53,23 @@ class ArduinoLowPowerCommon {
 
   /// Defiles the active time
   virtual void setActiveTime(uint32_t time, time_unit_t time_unit_type) {
-    uint32_t timeout_us = toUs(time, time_unit_type);
-    timeout_end = millis() + timeout_us / 1000;
-    ;
+    timeout_us = toUs(time, time_unit_type);
+    char msg[80];
+    sprintf(msg, "timeout %u ms", timeout_us);
+    LP_LOG(msg);
+    timeout_end_ms = millis() + (timeout_us / 1000);
   }
 
   /// Checks if we are active (not sleeping)
   virtual bool isActive() {
-    if (timeout_end > 0 && timeout_end > millis()) return false;
-    if (!is_active) return false;
+    if (timeout_end_ms > 0 && millis() > timeout_end_ms) {
+      Serial.println("timed out");
+      return false;
+    }
+    if (!is_active) {
+      Serial.println("set to inactive");
+      return false;
+    } 
     return true;
   }
 
@@ -79,9 +87,11 @@ class ArduinoLowPowerCommon {
   /// @brief Triggers the processing to be active or sleeping based on the set
   /// definitions
   virtual void process() {
+    // check if we need to be active
     if (isActive()) return;
+    // sleep processor
     sleep();
-    // recalculate next timeout
+    // after wakeup: recalculate next timeout
     setActiveTime(timeout_us, time_unit_t::us);
   }
 
@@ -118,18 +128,18 @@ class ArduinoLowPowerCommon {
     sleep_mode = sleep_mode_enum_t::deepSleep;
     time_unit = time_unit_t::ms;
     timeout_us = 0;
-    timeout_end = 0;
+    timeout_end_ms = 0; 
     is_active = true;
   }
 
  protected:
   bool is_active = true;
-  uint32_t timeout_end = 0;
+  uint32_t timeout_end_ms = 0;
   uint32_t timeout_us = 0;
   time_unit_t time_unit = time_unit_t::ms;
   sleep_mode_enum_t sleep_mode = sleep_mode_enum_t::deepSleep;
 
-  uint64_t toUs(uint64_t time, time_unit_t time_unit) {
+  uint32_t toUs(uint32_t time, time_unit_t time_unit) {
     switch (time_unit) {
       case time_unit_t::sec:
         return time * 1000000;
@@ -138,6 +148,7 @@ class ArduinoLowPowerCommon {
       case time_unit_t::us:
         return time;
     }
+    Serial.println("undefined error");
     return 0;
   }
 };

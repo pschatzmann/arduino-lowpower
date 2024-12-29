@@ -72,6 +72,7 @@ class ArduinoLowPowerATTiny : public ArduinoLowPowerCommon {
   bool isModeSupported(sleep_mode_enum_t sleep_mode) override { return true; }
 
   void clear() {
+    LP_LOG("clear");
     ArduinoLowPowerCommon::clear();
     sleep_time_us = 0;
     open_watchdog_cycle = 0;

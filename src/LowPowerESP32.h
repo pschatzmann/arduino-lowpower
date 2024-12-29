@@ -67,11 +67,15 @@ class ArduinoLowPowerESP32 : public ArduinoLowPowerCommon {
 
   /// sets processor into sleep mode
   bool sleep(void) override {
+    LP_LOG("sleep");
     switch (sleep_mode) {
       case sleep_mode_enum_t::lightSleep:
+        LP_LOG("light sleep start");
         esp_light_sleep_start();
+        LP_LOG("light sleep end");
         return true;
       case sleep_mode_enum_t::deepSleep:
+        LP_LOG("deep sleep start");
         esp_deep_sleep_start();
         return true;
       case sleep_mode_enum_t::noSleep:
