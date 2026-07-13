@@ -48,10 +48,10 @@ class ArduinoLowPowerCommon {
     return true;
   }
 
-  /// sets the flag to be active
+  /// Sets the flag to be active/inactive
   virtual void setActive(bool flag) { is_active = false; }
 
-  /// Defiles the active time
+  /// Defines the active time
   virtual void setActiveTime(uint32_t time, time_unit_t time_unit_type) {
     timeout_us = toUs(time, time_unit_type);
     char msg[80];
@@ -60,7 +60,7 @@ class ArduinoLowPowerCommon {
     timeout_end_ms = millis() + (timeout_us / 1000);
   }
 
-  /// Checks if we are active (not sleeping)
+  /// Checks if we should be active (not sleeping) considering the defined setActiveTime()
   virtual bool isActive() {
     if (timeout_end_ms > 0 && millis() > timeout_end_ms) {
       Serial.println("timed out");
@@ -84,8 +84,7 @@ class ArduinoLowPowerCommon {
     return result;
   }
 
-  /// @brief Triggers the processing to be active or sleeping based on the set
-  /// definitions
+  /// Sets processor into sleep mode if active is false
   virtual void process() {
     // check if we need to be active
     if (isActive()) return;
