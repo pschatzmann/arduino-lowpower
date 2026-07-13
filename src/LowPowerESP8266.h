@@ -70,9 +70,9 @@ class ArduinoLowPowerESP8266 : public ArduinoLowPowerCommon {
         if (gpio_count != 0 || sleep_time_us == 0) return false;
         system_deep_sleep_set_option(sleep_option);
         if (is_instant)
-          system_deep_sleep(sleep_time_us);
-        else
           system_deep_sleep_instant(sleep_time_us);
+        else
+          system_deep_sleep(sleep_time_us);
 
         rc = true;
       } break;

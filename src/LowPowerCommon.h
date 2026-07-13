@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#include "LowPowerCommon.h"
+#include "LowPowerConfig.h"
 
 namespace low_power {
 
@@ -49,13 +49,13 @@ class ArduinoLowPowerCommon {
   }
 
   /// Sets the flag to be active/inactive
-  virtual void setActive(bool flag) { is_active = false; }
+  virtual void setActive(bool flag) { is_active = flag; }
 
   /// Defines the active time
   virtual void setActiveTime(uint32_t time, time_unit_t time_unit_type) {
     timeout_us = toUs(time, time_unit_type);
     char msg[80];
-    sprintf(msg, "timeout %u ms", timeout_us);
+    sprintf(msg, "timeout %lu us", (unsigned long)timeout_us);
     LP_LOG(msg);
     timeout_end_ms = millis() + (timeout_us / 1000);
   }
@@ -63,13 +63,13 @@ class ArduinoLowPowerCommon {
   /// Checks if we should be active (not sleeping) considering the defined setActiveTime()
   virtual bool isActive() {
     if (timeout_end_ms > 0 && millis() > timeout_end_ms) {
-      Serial.println("timed out");
+      LP_LOG("timed out");
       return false;
     }
     if (!is_active) {
-      Serial.println("set to inactive");
+      LP_LOG("set to inactive");
       return false;
-    } 
+    }
     return true;
   }
 
@@ -147,7 +147,7 @@ class ArduinoLowPowerCommon {
       case time_unit_t::us:
         return time;
     }
-    Serial.println("undefined error");
+    LP_LOG("undefined error");
     return 0;
   }
 };

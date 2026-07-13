@@ -14,25 +14,6 @@ namespace low_power {
 
 class ArduinoLowPowerSAMD : public ArduinoLowPowerCommon {
  public:
-  bool setSleepMode(sleep_mode_enum_t sleep_mode) {
-    bool result = false;
-    switch (sleep_mode) {
-      case sleep_mode_enum_t::modemSleep:
-        result = true;
-        break;
-      case sleep_mode_enum_t::noSleep:
-        result = true;
-        break;
-      case sleep_mode_enum_t::lightSleep:
-        result = false;
-        break;
-      case sleep_mode_enum_t::deepSleep:
-        result = false;
-        break;
-    }
-    return result;
-  }
-
   /// sets processor into sleep mode
   bool sleep(void) override {
     bool rc = false;

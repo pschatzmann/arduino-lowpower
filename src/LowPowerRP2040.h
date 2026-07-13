@@ -70,7 +70,7 @@ class ArduinoLowPowerRP2040 : public ArduinoLowPowerCommon {
 
       case sleep_mode_enum_t::deepSleep: {
         // use wakup pins
-        if (wakeup_pins.size() >= 0) {
+        if (wakeup_pins.size() > 0) {
           if (wakeup_pins.size() > 1) return false;
           if (wakeup_pins[0].change_type == pin_change_t::on_high) {
             sleep_goto_dormant_until_edge_high(wakeup_pins[0].pin);

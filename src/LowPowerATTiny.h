@@ -56,7 +56,7 @@ class ArduinoLowPowerATTiny : public ArduinoLowPowerCommon {
   }
 
   bool setSleepTime(uint32_t time, time_unit_t time_unit_type) override {
-    sleep_time_us = toUs(time, time_unit);
+    sleep_time_us = toUs(time, time_unit_type);
     return true;
   }
 
